@@ -3,20 +3,20 @@ const Redis = require('ioredis');
 const { Client } = require('pg'); 
 
 //Name of stream we are reading from
-const STREAM_KEY = 'logstream'
+const STREAM_KEY = process.env.STREAM_KEY; 
 //Interval of the stream we are processing to write to the database
-const INTERVAL = 3000;
+const INTERVAL = process.env.INTERVAL;
 //Rate at which we want to query the stream for data
-const PING_RATE = 3000; 
+const PING_RATE = process.env.PING_RATE; 
 //Where Redis is being hosted (either local machine or elasticache)
-const REDIS_HOST = 'venus-redis-micro.syohjt.ng.0001.use2.cache.amazonaws.com'
+const REDIS_HOST = process.env.REDIS_HOST; 
 // const REDIS_HOST = 'localhost'
 
-const DB_NAME = 'postgres'; 
+const DB_NAME = process.env.DB_NAME; 
 
-const TABLE_NAME = 'logs'
+const TABLE_NAME = process.env.TABLE_NAME; 
 
-const REGION = 'us-east-2'
+const REGION = process.env.REGION; 
 
 const redis = new Redis({
   port: 6379, 
