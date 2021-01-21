@@ -26,10 +26,10 @@ const redis = new Redis({
 // const docClient = new dynamodb.DocumentClient({region: REGION}); 
 
 const client = new Client({
-  user: DB_NAME, 
-  host: 'log-database-1.cluster-czysdiigcqcb.us-east-2.rds.amazonaws.com', 
-  database: DB_NAME, 
-  password: 'NMnNA2IXwfuyJcyPyBen', 
+  user: process.env.DB_NAME, 
+  host: process.env.DB_HOST, 
+  database: process.env.DB_NAME, 
+  password: process.env.DB_PASS, 
   port: 5432
 })
 
