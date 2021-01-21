@@ -43,24 +43,24 @@ const client = new Pool({
 //TODO: CAPPED STREAM SIZES
 
 
-client.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err)
-  process.exit(-1)
-})
+// client.on('error', (err, client) => {
+//   console.error('Unexpected error on idle client', err)
+//   process.exit(-1)
+// })
 
-// callback - checkout a client
-client.connect((err, client, done) => {
-  console.log('DB CONNECTED!')
-  if (err) throw err
-  client.query('SELECT * FROM logs;', (err, res) => {
-    done()
-    if (err) {
-      console.log(err.stack)
-    } else {
-      console.log(res.rows[0])
-    }
-  })
-})
+// // callback - checkout a client
+// client.connect((err, client, done) => {
+//   console.log('DB CONNECTED!')
+//   if (err) throw err
+//   client.query('SELECT * FROM logs;', (err, res) => {
+//     done()
+//     if (err) {
+//       console.log(err.stack)
+//     } else {
+//       console.log(res.rows[0])
+//     }
+//   })
+// })
 
 
 
