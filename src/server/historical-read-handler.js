@@ -47,8 +47,10 @@ client.on('error', (err, client) => {
   console.error('Unexpected error on idle client', err)
   process.exit(-1)
 })
+
 // callback - checkout a client
 client.connect((err, client, done) => {
+  console.log('DB CONNECTED!')
   if (err) throw err
   client.query('SELECT * FROM logs;', (err, res) => {
     done()
