@@ -12,7 +12,9 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "hist": "node src/server/historical-read-handler.js",
-    "rt": "node src/server/real-time-read-handler.js"
+    "db": "node src/server/db.js",
+    "rt": "node src/server/real-time-read-handler.js",
+    "test": "npm run db && npm run hist"
   },
   "keywords": [],
   "author": "elisealcala",
