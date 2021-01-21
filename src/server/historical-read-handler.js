@@ -37,10 +37,29 @@ const client = new Pool({
   port: 5432
 })
 
-client.connect(); 
+// client.connect(); 
 
 //TODO: INTEGRATE POOL CONNECTIONS
 //TODO: CAPPED STREAM SIZES
+
+
+client.on('error', (err, client) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1)
+})
+// callback - checkout a client
+client.connect((err, client, done) => {
+  if (err) throw err
+  client.query('SELECT * FROM logs;', (err, res) => {
+    done()
+    if (err) {
+      console.log(err.stack)
+    } else {
+      console.log(res.rows[0])
+    }
+  })
+})
+
 
 
 //TEST READ TABLE FROM POSTGRES
