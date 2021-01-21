@@ -1,6 +1,6 @@
 const { read } = require('fs');
 const Redis = require('ioredis');
-const { Client, Pool } = require('pg');
+const client = require('../server/db.js'); 
 require('dotenv').config(); 
  
 
@@ -28,13 +28,13 @@ const redis = new Redis({
 });
 
 //Boilerplate to set up postgres db (client) object
-const pool = new Pool({
-  user: DB_NAME, 
-  host: REDIS_HOST, 
-  database: DB_NAME, 
-  password: DB_PASS, 
-  port: 5432
-})
+// const pool = new Pool({
+//   user: DB_NAME, 
+//   host: REDIS_HOST, 
+//   database: DB_NAME, 
+//   password: DB_PASS, 
+//   port: 5432
+// })
 
 //TODO: INTEGRATE POOL CONNECTIONS
 //TODO: CAPPED STREAM SIZES
@@ -42,9 +42,7 @@ const pool = new Pool({
 
 //TEST READ TABLE FROM POSTGRES
 
-const main = async () => {
-
-  const client = await pool.connect(); 
+  // const client = await pool.connect(); 
 
   client.query('SELECT * FROM logs; ', (err, result) => {
     if(err){
@@ -58,7 +56,7 @@ const main = async () => {
 
   const readAndWriteToDB = async () => {
 
-      const client = await pool.connect();
+      // const client = await pool.connect();
 
       //Transform xrange's output from two arrays of keys and value into one array of log objects
       Redis.Command.setReplyTransformer('xrange', function (result) {
@@ -130,6 +128,6 @@ const main = async () => {
   } catch (e) {
     console.error(e); 
   }
-}
 
-main(); 
+
+// main(); 
