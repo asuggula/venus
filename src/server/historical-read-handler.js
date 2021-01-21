@@ -37,7 +37,7 @@ const client = new Pool({
   port: 5432
 })
 
-// client.connect(); 
+// const client = await pool.connect(); 
 
 //TODO: INTEGRATE POOL CONNECTIONS
 //TODO: CAPPED STREAM SIZES
