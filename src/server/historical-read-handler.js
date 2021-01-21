@@ -1,6 +1,7 @@
 const { read } = require('fs');
 const Redis = require('ioredis');
 // const client = require('../server/db.js'); 
+const { Pool } = require('pg'); 
 require('dotenv').config(); 
  
 
