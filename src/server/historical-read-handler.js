@@ -28,13 +28,15 @@ const redis = new Redis({
 });
 
 //Boilerplate to set up postgres db (client) object
-// const pool = new Pool({
-//   user: DB_NAME, 
-//   host: REDIS_HOST, 
-//   database: DB_NAME, 
-//   password: DB_PASS, 
-//   port: 5432
-// })
+const client = new Pool({
+  user: DB_NAME, 
+  host: REDIS_HOST, 
+  database: DB_NAME, 
+  password: DB_PASS, 
+  port: 5432
+})
+
+client.connect(); 
 
 //TODO: INTEGRATE POOL CONNECTIONS
 //TODO: CAPPED STREAM SIZES
