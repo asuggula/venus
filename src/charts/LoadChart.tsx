@@ -1,24 +1,37 @@
-import React, { useState, useEffect } from 'react';    
-import Area  from '@ant-design/charts/es/area';
+/**
+ * @name LoadChart
+ * @desc Chart that displays in historical status page rendering historical load statistics. Child component of ChartContainer.
+ */
+
+import React, { useContext,useEffect } from "react";
+import Area from "@ant-design/charts/es/area";
+import { historicalContext } from "../contexts/historicalContext";
 function LoadChart(): JSX.Element {
-  const [ data, setData ] = useState([]);   
-  useEffect(()=>{  
-    fetch('https://gw.alipayobjects.com/os/bmw-prod/b21e7336-0b3e-486c-9070-612ede49284e.json')
-      .then((response)=> response.json()) 
-      .then((json)=>{
-        console.log(json)
-        return setData(json)})  
-      .catch((error)=>{  
-        console.log('fetch data failed', error);
-      });
-  },[]); 
-    
-  var config ={ 
-    data : data ,
-    xField: 'date',
-    yField:'value', 
-    seriesField: 'country',
+
+
+  useEffect(()=> {
+      asyncFetch();
+    }, []);
+    const asyncFetch = () => {
+      fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac5698.json')
+        .then((response) => response.json())
+        .then((json) => console.log(json))
+        .catch((error) => {
+          console.log('fetch data failed', error);
+        });
+    };
+
+
+
+  const { serviceData } = useContext(historicalContext);
+  
+  let config = {
+    data: serviceData.load,
+    xField: "timestamp",
+    yField: "value",
+    seriesField: "service",
   };
+  console.log(config.data, 'config load')
   return <Area {...config} autoFit={true} />;
-};
+}
 export { LoadChart };

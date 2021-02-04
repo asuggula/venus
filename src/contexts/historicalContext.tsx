@@ -1,3 +1,7 @@
+/**
+ * @name historicalContext
+ * @desc Context that dynamically updates all historicalData within specific time frame.
+ */
 import React, { useState } from 'react'; 
 
 type historicalState = {
@@ -9,9 +13,14 @@ type historicalState = {
       availability: number,
     };
     service:string;
+    serviceData: any;
+    timeRange: any;
+    currentRange: string;
     setAggregate: (input:any) => void;
-
     setService: (input:string) => void;
+    setServiceData: (input:any) => void;
+    setTimeRange: (input:any) => void;
+    setCurrentRange: (input:string) => void;
 };
 
 export const historicalData: historicalState = {
@@ -23,8 +32,14 @@ export const historicalData: historicalState = {
     availability: 0,
   },
   service: '',
+  serviceData: {},
+  timeRange: {},
+  currentRange: '',
   setAggregate: () => {},
-  setService: () => {}
+  setService: () => {},
+  setServiceData: () => {},
+  setTimeRange: () => {},
+  setCurrentRange: () => {},
 };
 
 export const historicalContext = React.createContext<historicalState>(historicalData)
@@ -32,9 +47,12 @@ export const historicalContext = React.createContext<historicalState>(historical
 
 export const HistoricalProvider: React.FC = (props: any) => {
   
-  const [aggregate, setAggregate] = useState<any>({});
-  const [ service, setService] = useState<any>('')
+  const [ aggregate, setAggregate ] = useState<any>({});
+  const [ service, setService ] = useState<any>('')
+  const [ serviceData, setServiceData ] = useState<any>({})
+  const [ timeRange, setTimeRange ] = useState<any>({})
+  const [ currentRange, setCurrentRange ] = useState<any>('lastHour')
 
-  return <historicalContext.Provider value={{ aggregate, setAggregate, service, setService}}>{props.children}</historicalContext.Provider>
+  return <historicalContext.Provider value={{ aggregate, setAggregate, service, setService, setServiceData, serviceData, timeRange, setTimeRange, currentRange, setCurrentRange}}>{props.children}</historicalContext.Provider>
 
 }

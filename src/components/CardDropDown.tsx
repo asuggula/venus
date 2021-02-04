@@ -1,56 +1,51 @@
 /**
  * @name CardDropDown
- * @desc Child of ChartContainer, Displays drop down on 2nd page
+ * @desc Child of ChartContainer, Displays drop down menu where user can select from available services
 **/
 
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Select from 'antd/es/select';
 import { historicalContext } from '../contexts/historicalContext';
+import { dynamicContext } from '../contexts/dynamicContext';
 
-const options: any[] = [
-  'curriculum-api.codesmith.io', 'google.com', 'surfline.com'
-];
-const dropDownOptions: any[] =[];
-for (let i = 0; i < options.length; i++){
-  dropDownOptions.push(
-    <Select.Option value={options[i]} key={i}>{options[i]}</Select.Option>
-  )
-}
 
-function CardDropDown (): JSX.Element{
-
-  const { setService } = useContext(historicalContext)
-
+function CardDropDown (props:any): JSX.Element{
+  
+  let aggregate: JSX.Element = <Select.Option value={'aggregate'} key={10000}>{'Aggregate'}</Select.Option>
+  const dropDownOptions: any[] =[aggregate];
+  for (let i = 0; i < props.services.length; i++){
+    dropDownOptions.push(
+      <Select.Option value={props.services[i]} key={i}>{props.services[i]}</Select.Option>
+    )
+  }
+  const { setService, setTimeRange, currentRange } = useContext(historicalContext)
 	function onChange(value:string) {
     console.log(value)
+    // axios.get('ec2instance'+':3000/getHistorical/' + value).then(function(response){
+    //   console.log(response)
+    //   setServiceData(response.data[currentRange])
+    //  setTimeRange(response.data)
+    // })
+    // .catch(function(error){
+    //   console.log(error,'< error')
+    // })
+    // fetch request to route for data.
+    // data is then brought into state and updated. otherwise, create a larger pool for an initial pull
     setService(value)
+    }
     
-		}
-
-	function onBlur() {
-		console.log('blur');
-	}
-
-	function onFocus() {
-  	console.log('focus');
-	}
-
 	function onSearch(val:any) {
 		console.log('search:', val);
-	}
-
+  }
+  
   return (
   <Select
-    showSearch
     style={{ width: 300}}
     placeholder="Select a service"
     optionFilterProp="children"
     onChange={onChange}
-    onFocus={onFocus}
-    onBlur={onBlur}
-    onSearch={onSearch}
     filterOption={(input:any, option:any) =>
-      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}> 
+       option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}> 
     {dropDownOptions}
   </Select>
   )
