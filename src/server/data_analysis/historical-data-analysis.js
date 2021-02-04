@@ -564,8 +564,6 @@ const histMain = () => {
 }
 
 
-
-
 /**  
   * DB READ FUNCTIONS
   * @param {input} - A string that's either the name of the service or the string 'aggregate'
