@@ -518,15 +518,14 @@ histController.readLastHour = (req, res, next) => {
           
           console.log('result row: ', row);
 
-          if(row.method === 'aggregate'){
+          if(row.service === service && row.method === 'aggregate'){
 
             returnObj.lastHour.aggregate['availability'] = row.availability;
             returnObj.lastHour.aggregate['error_rate'] = row.error_rate;
             returnObj.lastHour.aggregate['response_time'] = row.response_time;
             returnObj.lastHour.aggregate['load'] = row.load; 
-          }
-          
-          if(row.service === service && row.method !== 'aggregate'){
+            
+          } else if (row.service === service && row.method !== 'aggregate') {
             //Create availability property and push to array
             returnObj['lastHour']['availability'].push({
               "timestamp": unixToTimestamp(row.timestamp), 
