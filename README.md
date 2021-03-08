@@ -65,6 +65,7 @@ There are three key phases of The Venus Orbit:
 2. Analyzing data: 
  - The Redis Cluster stream is then read from the Venus server and at a specified interval, the server reads from the stream and pipes the data to a Danfo.js based module for analysis. After analysis, the data is sent via websocket to the GUI for visualization. 
  - For historical data, the Venus server pipes the data from the Redis stream at a specified cadence and is then processed, analyzed and stored in a series of cascading data tables ready to be served. Panel data flows to the frontend interface via a RESTful API.
+
  
  3. Viewing data: 
  - To view the data, users must launch a local version of the Venus Electron GUI. Upon load, users will be prompted to enter the full server address of their server instance. Upon render, the websocket handshake is established with Venus server instance and both real-time and historic data is automatically fetched and rendered. 
