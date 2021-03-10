@@ -96,7 +96,6 @@ io.sockets.on('connection', (socket) => {
   emitData(socket); 
 })
 
-
 /**
  * Emit Data Function 
  * This function's primarily role is to, upon socket connection, run the real-time data analysis and emit the result to 
